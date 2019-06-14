@@ -1,6 +1,7 @@
 package com.ttzf.dao.internetCafe;
 
 import com.ttzf.model.internetCafe.InternetCafeOwnerDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

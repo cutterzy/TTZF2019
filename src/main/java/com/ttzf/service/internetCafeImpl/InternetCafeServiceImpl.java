@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 /**
  * Created by zy on 2019/6/4
  */
-@Service
+@Service("internetCafeService")
 public class InternetCafeServiceImpl implements InternetCafeService {
 
     private static final double EARTH_RADIUS = 6378137;//赤道半径(单位m)
