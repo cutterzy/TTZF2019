@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttzf.dao.internetCafe.InternetCafeDao">
+    <resultMap id="internetCafeTemp" type="com.ttzf.model.internetCafe.InternetCafeDTO">
+        <result property="id" column="id"></result>
+        <result property="cafeName" column="cafe_name"></result>
+        <result property="cafeSize" column="cafe_size"></result>
+        <result property="cafeUnit" column="cafe_unit"></result>
+        <result property="cafeManagerId" column="cafe_manager_id"></result>
+        <result property="cafeLevel" column="cafe_level"></result>
+        <result property="cafeGrade" column="cafe_grade"></result>
+        <result property="cafeWorkTime" column="cafe_work_time"></result>
+        <result property="cafeNotice" column="cafe_notice"></result>
+        <result property="cafeImg" column="cafe_img"></result>
+        <result property="cafeDimension" column="cafe_dimension"></result>
+        <result property="cafeTranslate" column="cafe_translate"></result>
+        <result property="cafeCreateTime" column="cafe_create_time"></result>
+        <result property="cafeCreateOperate" column="cafe_create_operate"></result>
+        <result property="cafeState" column="cafe_state"></result>
+        <result property="cafePrice" column="cafe_price"></result>
+    </resultMap>
+
+    <resultMap id="internetCafeImgTemp" type="com.ttzf.model.internetCafe.InternetCafeImgDTO">
+        <result property="id" column="id"></result>
+        <result property="cafeId" column="cafe_id"></result>
+        <result property="imgUrl" column="img_url"></result>
+        <result property="imgSort" column="img_sort"></result>
+        <result property="imgName" column="img_name"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="modifyTime" column="modify_time"></result>
+    </resultMap>
+
+    <select id="selectInternetCafeList" resultMap="internetCafeTemp" parameterType="com.ttzf.model.internetCafe.InternetCafeDTO">
+        select
+            id,
+            cafe_name,
+            cafe_unit,
+            cafe_manager_id,
+            cafe_level,
+            cafe_grade,
+            cafe_work_time,
+            cafe_notice,
+            cafe_img ,
+            cafe_dimension,
+            cafe_translate,
+            cafe_create_time,
+            cafe_create_operate ,
+            cafe_state ,
+            cafe_price
+        from internet_cafe
+        where 1 = 1
+        <if test="cafeName != null and cafeName != ''">
+            and cafe_name concat('%',#{cafeName},'%')
+        </if>
+        <if test="cafeManagerId != null and cafeManagerId != ''">
+            and cafe_name  = #{cafeManagerId}
+        </if>
+        <if test="cafeLevel != null and cafeLevel != ''">
+            and cafe_Level = #{cafeLevel}
+        </if>
+        <if test="cafeState != null and cafeState != ''">
+            and cafe_state = #{cafeState}
+        </if>
+        order by cafe_create_time
+    </select>
+
+    <select id="selectInternetCafePager" resultMap="internetCafeTemp" parameterType="com.ttzf.model.internetCafe.InternetCafeDTO">
+        select
+        id,
+        cafe_name,
+        cafe_unit,
+        cafe_manager_id,
+        cafe_level,
+        cafe_grade,
+        cafe_work_time,
+        cafe_notice,
+        cafe_img ,
+        cafe_dimension,
+        cafe_translate,
+        cafe_create_time,
+        cafe_create_operate ,
+        cafe_state ,
+        cafe_price
+        from internet_cafe
+        where 1 = 1
+        <if test="cafeName != null and cafeName != ''">
+            and cafe_name concat('%',#{cafeName},'%')
+        </if>
+        <if test="cafeManagerId != null and cafeManagerId != ''">
+            and cafe_name  = #{cafeManagerId}
+        </if>
+        <if test="cafeLevel != null and cafeLevel != ''">
+            and cafe_Level = #{cafeLevel}
+        </if>
+        <if test="cafeState != null and cafeState != ''">
+            and cafe_state = #{cafeState}
+        </if>
+        order by cafe_create_time
+    </select>
+
+    <select id="selectInternetCafeImgList" resultMap="internetCafeImgTemp" parameterType="String">
+        select
+            id,
+            cafe_id ,
+            img_url,
+            img_name,
+            sort,
+            create_time,
+            modify_time
+        from internet_cafe_img
+        where cafe_id = #{cafeId}
+    </select>
+
+    <select id="selectInternetCafeOne" resultMap="internetCafeTemp" parameterType="com.ttzf.model.internetCafe.InternetCafeDTO">
+        select
+        id,
+        cafe_name,
+        cafe_unit,
+        cafe_manager_id,
+        cafe_level,
+        cafe_grade,
+        cafe_work_time,
+        cafe_notice,
+        cafe_img ,
+        cafe_dimension,
+        cafe_translate,
+        cafe_create_time,
+        cafe_create_operate ,
+        cafe_state ,
+        cafe_price
+        from internet_cafe
+        where  1 = 1
+        <if test="id != null and id != ''">
+            and internet_cafe.id = #{id}
+        </if>
+         <if test="cafeName != null and cafeName != ''">
+            and internet_cafe.cafe_name = #{cafeName}
+         </if>
+
+    </select>
+
+    <insert id="insertInternetCafe" parameterType="com.ttzf.model.internetCafe.InternetCafeDTO">
+        insert into internet_cafe
+        (
+        id,
+        cafe_name,
+        cafe_manager_id,
+        cafe_level,
+        cafe_grade,
+        cafe_work_time,
+        cafe_notice,
+        cafe_dimension,
+        cafe_translate,
+        cafe_create_time,
+        cafe_create_operate,
+        cafe_state,
+        cafe_price
+        )
+        values (
+        #{id},
+        #{cafeName},
+        #{cafeManagerId,jdbcType=VARCHAR},
+        #{cafeLevel},
+        #{cafeGrade},
+        #{cafeWorkTime},
+        #{cafeNotice},
+        #{cafeDimension,jdbcType=NUMERIC},
+        #{cafeTranslate,jdbcType=NUMERIC},
+        #{cafeCreateTime},
+        #{cafeCreateOperate},
+        #{cafeState},
+        #{cafePrice}
+        )
+    </insert>
+
+    <insert id="insertInternetCafeImg" parameterType="com.ttzf.model.internetCafe.InternetCafeImgDTO">
+        insert into internet_cafe_img
+        (
+        id,
+        cafe_id,
+        img_url,
+        img_sort,
+        img_name,
+        create_time,
+        modify_time
+        )
+        values (
+        #{id},
+        #{cafeId},
+        #{imgUrl},
+        #{imgSort},
+        #{imgName},
+        #{createTime},
+        #{modifyTime}
+        )
+    </insert>
+
+    <insert id="insertInternetCafeImgBatch" parameterType="java.util.List">
+        insert into internet_cafe_img
+        (
+        id,
+        cafe_id,
+        img_url,
+        img_sort,
+        img_name,
+        create_time,
+        modify_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.cafeId},
+            #{item.imgUrl},
+            #{item.imgSort},
+            #{item.imgName},
+            #{item.createTime},
+            #{item.modifyTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateInternetCafe" parameterType="com.ttzf.model.internetCafe.InternetCafeDTO">
+        update
+        internet_cafe
+        <set>
+            cafe_name = #{cafeName},
+        </set>
+        <set>
+            cafe_manager_id = #{cafeManagerId},
+        </set>
+        <set>
+            cafe_level = #{cafeLevel},
+        </set>
+        <set>
+            cafe_work_time = #{cafeWorkTime},
+        </set>
+        <set>
+            cafe_notice = #{cafeNotice},
+        </set>
+        <set>
+            cafe_img = #{cafeImg},
+        </set>
+        <set>
+            cafe_dimension = #{cafeDimension},
+        </set>
+        <set>
+            cafe_translate = #{cafeTranslate},
+        </set>
+        <set>
+            cafe_state = #{cafeState},
+        </set>
+        <set>
+            cafe_price = #{cafePrice},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateInternetCafeImg" parameterType="com.ttzf.model.internetCafe.InternetCafeImgDTO">
+        update internet_cafe_img
+        <set>
+            img_name = #{imgName},
+        </set>
+        <set>
+            img_url = #{imgUrl},
+        </set>
+        <set>
+            img_sort = #{imgSort},
+        </set>
+        <set>
+            modify_time = #{modifyTime},
+        </set>
+        <set>
+            major = #{major},
+        </set>
+        where
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="cafeId != null and cafeId != ''">
+            and cafe_id = #{cafeId}
+        </if>
+    </update>
+    <delete id="deleteInternetCafe" parameterType="String">
+          delete from  internet_cafe where id in
+          <foreach collection="id.split(',')" index="index" item="item" open="(" separator="," close=")">
+                  #{item}
+          </foreach>
+    </delete>
+</mapper>

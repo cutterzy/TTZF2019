@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttzf.dao.internetCafe.InternetCafeOwnerDao">
+    <resultMap id="internetCafeOwnerTemp" type="com.ttzf.model.internetCafe.InternetCafeOwnerDTO">
+       <result property="id" column="id"></result>
+       <result property="name" column="name"></result>
+       <result property="sex" column="sex"></result>
+       <result property="cardId" column="card_id"></result>
+       <result property="personImgUrl" column="person_img_url"></result>
+       <result property="businessImgUrl" column="business_img_url"></result>
+    </resultMap>
+
+    <select id="selectInternetCafeOwnerList" parameterType="com.ttzf.model.internetCafe.InternetCafeOwnerDTO" resultMap="internetCafeOwnerTemp">
+        select
+        id,
+        name,
+        sex,
+        card_id,
+        person_img_url,
+        business_img_url
+        from internet_cafe_owner
+        <where>
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name concat('%',#{name},'%')
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="cardId != null and cardId != ''">
+                and card_id = #{cardId}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insertInternetCafeOwner" parameterType="com.ttzf.model.internetCafe.InternetCafeOwnerDTO">
+        insert into internet_cafe_owner
+        (
+        id
+        name,
+        sex,
+        card_id,
+        person_img_url,
+        business_img_url
+        )
+        values (
+        #{id},
+        #{name},
+        #{sex,jdbcType=NUMERIC},
+        #{cardId},
+        #{personImgUrl,jdbcType=VARCHAR},
+        #{businessImgUrl,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateInternetCafeOwner" parameterType="com.ttzf.model.internetCafe.InternetCafeOwnerDTO">
+        update internet_cafe_owner
+        <set>
+            name = #{name},
+        </set>
+        <set>
+            sex = #{sex},
+        </set>
+        <set>
+            card_id = #{cardId},
+        </set>
+        <set>
+            person_img_url= #{personImgUrl},
+        </set>
+        <set>
+            business_img_url = #{businessImgUrl},
+        </set>
+          where id = #{id}
+    </update>
+
+    <delete id="deleteInternetCafeOwner" parameterType="String">
+        delete from internet_cafe_owner
+        where id in
+        <foreach collection="id.split(',')" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>
