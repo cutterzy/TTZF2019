@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   datasource:
@@ -23,6 +23,8 @@ spring:
       testOnReturn: false
       poolPreparedStatements: true
       maxOpenPreparedStatements: 20
+  transaction:
+      rollback-on-commit-failure: true
 #      name: test
 #      url: jdbc:mysql://www.angelyb.com:3306/internetCafe?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true
 #      username: root

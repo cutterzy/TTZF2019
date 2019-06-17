@@ -10,11 +10,13 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +38,8 @@ public class InternetCafeController {
 
     @PostMapping("/queryList")
     @ApiOperation(value = "网咖详情")
-    public Object queryList(InternetCafeDTO internetCafeDTO) throws Exception {
+    public Object queryList(@Valid  InternetCafeDTO internetCafeDTO, BindingResult result) throws Exception {
+        CommonUtils.validDate(result);
         try {
             return internetCafeService.queryInternetCafePager(internetCafeDTO);
         } catch (Exception e) {

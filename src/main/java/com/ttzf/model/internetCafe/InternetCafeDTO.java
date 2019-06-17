@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -20,6 +21,7 @@ public class InternetCafeDTO extends Pager implements Serializable{
 
     private String id;
     //网咖名
+    @NotBlank(message = "缺少网咖名")
     private String cafeName;
     //网咖规格
     private String cafeSize;

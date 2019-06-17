@@ -19,7 +19,7 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/user/loginPage")//登录时跳转的页面
+                .loginPage("/internetCafe/queryList")//登录时跳转的页面
                 .loginProcessingUrl("/user/login") //登录处理逻辑的页面
                 .failureUrl("/user/login-error")//失败页面
                 .permitAll()  //表单登录，permitAll()表示这个不需要验证 登录页面，登录失败页面
